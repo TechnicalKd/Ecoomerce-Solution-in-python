@@ -1,0 +1,87 @@
+{% load static %}
+{% load Cart_tag %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>
+        
+        {% block title %}
+             Home Page
+        {% endblock %}
+    </title>
+  </head>
+  <body>
+  {% if user.is_authenticated %} 
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link mr-5" href="{% url 'App_Cart:view_cart' %}"><i class="fa fa-cart-plus"></i>Cart <span class="badge badge-light">({{ request.user | cart_total }})</span> </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle mr-5" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{ user.profile.username }}</a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'App_payment:order_view' %}">Order</a>
+          <a class="dropdown-item" href="{% url 'App_login:edit_profile' %}">Profile</a>
+          <a class="dropdown-item" href="{% url  'App_login:user_logout' %}">Logout</a>
+          
+      </li>
+     
+    
+    </ul>
+    
+  </div>
+</nav>
+   {% endif %}  
+     
+
+
+
+     <div class="container" style="margin-top:30px">
+    
+        <div class="messages container mt-4">
+          {% if messages %}
+            {% for message in messages %}
+
+              <div {% if message.tags %} class="alert alert-{{ message.tags }} {% endif%}" role="alert">
+
+                  {{ message }}
+
+                  <button type="button" class="close" data-dismiss="alert" aria-level="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              {% endfor %}
+          {% endif %}
+        </div>
+
+  </div>  
+        {% block content %}
+
+        {% endblock %}  
+          
+     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  </body>
+</html>

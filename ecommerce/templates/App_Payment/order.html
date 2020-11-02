@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{%  load crispy_forms_tags %}
+{%  block content %}
+
+
+<div class="container mt-5">
+
+	<div class="row mt-5">
+
+		<table class="table  table-striped flush">
+
+			<thead >
+					<tr >
+						<th>ID</th>
+						<th>Product Name</th>
+						<th>Payment Id</th>
+						<th>Order Id</th>
+
+						<th>
+					</tr>	
+			</thead>
+			<tbody>
+				{% for order in  orders %}
+					<tr class="py-5">
+						<td>{{ forloop.counter }}</td>
+						<td>{{ order.orderitems.get }}</td>
+						<td>{{ order.paymentId }}</td>
+						<td>{{ order.orderId }}</td>
+
+					</tr>	
+				{% endfor %}	
+			</tbody>	
+
+		</table>	
+
+	</div>	
+
+</div>	
+		
+
+
+{% endblock %}

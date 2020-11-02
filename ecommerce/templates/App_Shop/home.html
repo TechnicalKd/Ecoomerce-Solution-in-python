@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{%  load crispy_forms_tags %}
+{%  block content %}
+<div class="container">
+	<div class="row">
+{% for product in object_list %}
+		<div class="col-md-4 col-lg-3 col-sm-2 p-5">
+
+			
+		<div class="card " style="width: 18rem;padding:50px;">
+  <img class="card-img-top" src="media/{{ product.main_image }}" alt="Card image cap">
+  <div class="card-body">
+   <a  href="{% url 'App_Shop:product_details' pk=product.pk  %}">
+    <h5 class="card-title">
+    {{ product.name }}</h5>
+  </a>
+    <p class="card-text"> Price :Rs {{ product.price }}</p>
+    <p class="card-text">Old_price :Rs {{ product.old_price}}</p>
+    
+  </div>
+</div>
+
+
+</div>
+{% endfor  %}
+</div>
+</div>
+{% endblock %}

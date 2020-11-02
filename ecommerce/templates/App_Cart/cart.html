@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{%  load crispy_forms_tags %}
+{%  block content %}
+
+<div class="container my-5">
+
+	<div class="my-5">
+
+		<h2>Your Cart</h2>
+	</div>
+
+	<table class="table table-hover">
+
+		<thead>
+			<tr>
+				<th scope="col" width="15px">#</th>
+				<th scope="col">Product Name</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Price</th>
+				<th scope="col">Remove</th>
+			</tr>
+
+		</thead>
+
+		<tbody>
+			{% for cart in cart %}
+			<tr>
+				<td scope="row">{{ forloop.counter }}</td>
+				<td scope="row">{{ cart.item }}</td>
+				<td scope="row"><span class="badge badge-light"> <a href="{% url 'App_Cart:increase_cart' pk=cart.item.pk %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+				</span>{{ cart.quantity }} <span class="badge badge-light"> <a href="{% url 'App_Cart:descrease_cart' pk=cart.item.pk  %}"> <i class="fa fa-minus" aria-hidden="true"></i></a>
+				</span></td>
+
+				<td scope="row">RS. {{ cart.get_total }}</td>
+				<td><a href="{% url 'App_Cart:remove_from_cart' pk=cart.item.pk %}" class="btn btn-danger">X</a></td>
+				</tr>	
+			{% endfor %}	
+
+<tr>
+	<th scope="row"></th>
+	<td colspan="2">Total</td>
+	<td>{{ order.get_totals  }}</td>
+</tr>
+	
+
+
+		</tbody>
+
+
+	</table>	
+	<button type="button" class="btn btn-warning float-right">Continue Shopping</button>	
+	<a type="button" href="{% url 'App_payment:userAddress' %}" class="btn btn-info float-right mr-5">Checkout</a>	
+
+</div>
+{%  endblock  %}
